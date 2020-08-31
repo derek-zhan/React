@@ -12,7 +12,7 @@ const app = props => {
   });
 
   const switchNameHandler = () => {
-    this.setState({
+    setPersonsState({
       persons: [
         {name: 'Maximilian', age: 28},
         {name: 'Manu', age: 29}
