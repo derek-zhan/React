@@ -6,8 +6,8 @@ import person from './Person/Person';
 class App extends Component {
   state = {
     persons: [
-      { name: 'Max', age: 28 },
-      { name: 'Manu', age: 29 }
+      { id: '1', name: 'Max', age: 28 },
+      { id: '2', name: 'Manu', age: 29 }
     ],
     showPersons: false
   }
@@ -27,9 +27,9 @@ class App extends Component {
   }
 
   deletePersonHalder = (personIndex) => {
-    //create copy
+    //create copy to update IMMUTABLY
     //const persons = this.state.persons.slice();
-    const persons = [...this.state.persons]
+    const persons = [...this.state.persons];
     persons.splice(personIndex, 1);
     this.setState({persons: persons});
   }
@@ -53,7 +53,8 @@ class App extends Component {
               name={person.name}
               age={person.age}
               click={() => this.deletePersonHalder(index)}
-              change={this.nameChangeHandler} />
+              change={this.nameChangeHandler}
+              key={person.id} />
           })}
         </div>
       )
