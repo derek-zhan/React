@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import './App.css';
 import Person from './Person/Person'
-import person from './Person/Person';
 
 class App extends Component {
   state = {
@@ -12,13 +11,22 @@ class App extends Component {
     showPersons: false
   }
 
-  nameChangeHandler = (event) => {
+  nameChangeHandler = (event, id) => {
+    const personIndex = this.state.persons.find(p => {
+      return p.id === id;
+    });
+
+    const person = {...this.state.persons[personIndex]};
+
+    //const person = Object.assign({}, this.state.persons[personIndex]);
+
+    person.name = event.target.value;
+    const persons = [...this.state.persons];
+    persons[personIndex] = person;
+
     this.setState({
-      persons: [
-        { name: event.target.value, age: 28 },
-        { name: 'Manu', age: 29 }
-      ]
-    })
+      persons: persons
+    });
   }
 
   togglePersonsHandler = () => {
@@ -53,7 +61,7 @@ class App extends Component {
               name={person.name}
               age={person.age}
               click={() => this.deletePersonHalder(index)}
-              change={this.nameChangeHandler}
+              change={(event) => this.nameChangeHandler(event, person.id)}
               key={person.id} />
           })}
         </div>
